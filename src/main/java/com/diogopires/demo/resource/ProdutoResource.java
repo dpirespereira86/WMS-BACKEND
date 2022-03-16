@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.diogopires.demo.domain.Produto;
+import com.diogopires.demo.dto.PostProdutoDTO;
 import com.diogopires.demo.dto.ProdutoDTO;
 import com.diogopires.demo.services.ProdutoService;
 
@@ -39,8 +40,8 @@ public class ProdutoResource {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@PathVariable Integer empresa,@RequestBody Produto obj){
-     obj = service.insert(empresa,obj);
+  public ResponseEntity<Void> insert(@PathVariable Integer empresa,@RequestBody PostProdutoDTO objDto){
+     Produto obj = service.insert(empresa,objDto);
      URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
      .path("/{id}").buildAndExpand(obj.getId()).toUri();
      return ResponseEntity.created(uri).build();

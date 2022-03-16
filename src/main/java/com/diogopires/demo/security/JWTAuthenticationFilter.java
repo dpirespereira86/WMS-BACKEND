@@ -65,7 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
-        res.setHeader("Access-Control-Allow-Origin", "http://192.168.0.105:3000");
+        res.setHeader("Access-Control-Allow-Origin", "http://192.168.0.112:3000");
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.getWriter().append("Bearer " + token);
         

@@ -31,10 +31,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
 
-    response.setHeader("Access-Control-Allow-Origin", "http://192.168.0.105:3000");
+    response.setHeader("Access-Control-Allow-Origin", "http://192.168.0.112:3000");
     response.setHeader("Access-Control-Allow-Credentials", "true");
     
-    if ("OPTIONS".equals(request.getMethod()) && "http://192.168.0.105:3000".equals(request.getHeader("Origin"))) {
+    if ("OPTIONS".equals(request.getMethod()) && "http://192.168.0.112:3000".equals(request.getHeader("Origin"))) {
       response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
           response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
           response.setHeader("Access-Control-Max-Age", "3600");

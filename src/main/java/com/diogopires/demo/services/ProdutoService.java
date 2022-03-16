@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 
 import com.diogopires.demo.domain.ItemMovimentacao;
 import com.diogopires.demo.domain.Produto;
+import com.diogopires.demo.dto.PostProdutoDTO;
 import com.diogopires.demo.repository.ProdutoRepository;
 import com.diogopires.demo.services.exceptions.DataIntegrityException;
 import com.diogopires.demo.services.exceptions.ObjectNotFoundException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class ProdutoService {
   
   @Autowired
   private EmpresaService serviceEmp;
+
+  @Autowired
+  private FornecedorService serviceForn;
 
   public Boolean validaCompany(Integer empresa, List<ItemMovimentacao> itens) {
     Integer x = 0;
@@ -71,16 +76,31 @@ public class ProdutoService {
     return produto;
   }
 
-  public Produto insert(Integer empresa, Produto obj){
-    obj.setId(null);
-    obj.setEmpresa(serviceEmp.buscar(empresa).get());
-    List<Produto> prod = findAll(empresa);
-    for(Produto x : prod){
+  public Produto insert(Integer empresa, PostProdutoDTO obj){
+
+    List<Produto> produto = findAll(empresa);
+    for(Produto x : produto){
       if(x.getCodigoBarra().contentEquals(obj.getCodigoBarra())){
         throw new ObjectNotFoundException("Produto com mesmo código");
       }
     }
-    return repo.save(obj);
+
+    Produto prod = new Produto(null,
+    obj.getCodigoBarra(),obj.getDescricao(),
+    (Double) obj.getComprimento(),
+    (Double) obj.getLargura(),
+    (Double) obj.getAltura(),
+    (Double) obj.getPeso(),
+    (Double) obj.getUltimoPrecoCompra(),
+    obj.getUnidade(),
+    (Double) obj.getEstoqueMinimo(),
+    (Double) obj.getEstoqueMaximo(),
+    (Double) obj.getQuantidade(),
+    obj.getPrazoEntrega(),
+    serviceEmp.buscar(empresa).get(),
+    serviceForn.findOne(obj.getFornecedor()));
+
+    return repo.save(prod);
     
   }
 

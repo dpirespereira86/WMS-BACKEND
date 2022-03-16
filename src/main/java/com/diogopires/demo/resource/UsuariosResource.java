@@ -21,7 +21,7 @@ public class UsuariosResource {
   private UsuarioService service;
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<?> findUser(@RequestBody Usuario obj){
+  public ResponseEntity<GetUsuarioDTO> findUser(@RequestBody Usuario obj){
      Usuario objUserUsuario = service.userDateGet(obj);
      GetUsuarioDTO user = new GetUsuarioDTO(objUserUsuario);
      return ResponseEntity.ok().body(user);
