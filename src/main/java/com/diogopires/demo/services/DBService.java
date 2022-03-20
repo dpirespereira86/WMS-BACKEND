@@ -122,13 +122,13 @@ public class DBService {
 
 		fornecedorRepository.saveAll(Arrays.asList(fonr1,fonr2,fonr3));
 
-		Produto prod1 = new Produto(null, "123654789", "Balcão refrigerado", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
-		Produto prod2 = new Produto(null, "123654790", "Balcão Estufa", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp2,fonr2);
-		Produto prod3 = new Produto(null, "123654791", "Balcão Seco", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60, emp1,fonr1);
-		Produto prod4 = new Produto(null, "123654792", "Vitrine Refrigerada", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60, emp2,fonr2);
-		Produto prod5 = new Produto(null, "123654793", "Vitrine Estufa", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
-		Produto prod6 = new Produto(null, "123654794", "Vitrine Seca", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp2,fonr2);
-		Produto prod7 = new Produto(null, "123654795", "Mesa Self Service", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
+		Produto prod1 = new Produto(null, "123654789","236598875", "Balcão refrigerado", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
+		Produto prod2 = new Produto(null, "123654790","369852147", "Balcão Estufa", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp2,fonr2);
+		Produto prod3 = new Produto(null, "123654791","123654789" ,"Balcão Seco", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60, emp1,fonr1);
+		Produto prod4 = new Produto(null, "123654792","852741963", "Vitrine Refrigerada", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60, emp2,fonr2);
+		Produto prod5 = new Produto(null, "123654793","789654321", "Vitrine Estufa", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
+		Produto prod6 = new Produto(null, "123654794","753159846","Vitrine Seca", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp2,fonr2);
+		Produto prod7 = new Produto(null, "123654795","951357268", "Mesa Self Service", 1.00, 0.60, 1.80, 10.50, 50.60, "und", 500.00, 1000.00, 0.00, 60,emp1,fonr1);
 
 		produtoRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4,prod5,prod6,prod7));
 

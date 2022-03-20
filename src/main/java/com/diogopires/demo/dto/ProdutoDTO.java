@@ -10,6 +10,7 @@ public class ProdutoDTO implements Serializable {
  
   private Integer id;
   private String codigoBarra;
+  private String sku;
   private String descricao;
   private Double comprimento;
   private Double largura;
@@ -28,6 +29,7 @@ public class ProdutoDTO implements Serializable {
   public ProdutoDTO(Produto obj) {
     this.id = obj.getId();
     this.codigoBarra = obj.getCodigoBarra();
+    this.sku = obj.getSku();
     this.descricao = obj.getDescricao();
     this.comprimento = obj.getComprimento();
     this.largura = obj.getLargura();
@@ -143,6 +145,14 @@ public class ProdutoDTO implements Serializable {
 
   public void setPrazoEntrega(Integer prazoEntrega) {
     this.prazoEntrega = prazoEntrega;
+  }
+
+  public String getSku() {
+    return sku;
+  }
+
+  public void setSku(String sku) {
+    this.sku = sku;
   }
    
   

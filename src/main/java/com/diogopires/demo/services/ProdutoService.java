@@ -3,20 +3,23 @@ package com.diogopires.demo.services;
 
 
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 import com.diogopires.demo.domain.ItemMovimentacao;
 import com.diogopires.demo.domain.Produto;
+import com.diogopires.demo.domain.Usuario;
 import com.diogopires.demo.dto.PostProdutoDTO;
 import com.diogopires.demo.repository.ProdutoRepository;
+import com.diogopires.demo.security.UserSS;
+import com.diogopires.demo.services.exceptions.AuthorizationException;
 import com.diogopires.demo.services.exceptions.DataIntegrityException;
 import com.diogopires.demo.services.exceptions.ObjectNotFoundException;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProdutoService {
@@ -29,6 +32,12 @@ public class ProdutoService {
 
   @Autowired
   private FornecedorService serviceForn;
+  
+  @Autowired
+  private S3Service s3Service;
+  
+  @Autowired
+  private UsuarioService usuarioService;
 
   public Boolean validaCompany(Integer empresa, List<ItemMovimentacao> itens) {
     Integer x = 0;
@@ -86,7 +95,9 @@ public class ProdutoService {
     }
 
     Produto prod = new Produto(null,
-    obj.getCodigoBarra(),obj.getDescricao(),
+    obj.getCodigoBarra(),
+    obj.getSku(),
+    obj.getDescricao(),
     (Double) obj.getComprimento(),
     (Double) obj.getLargura(),
     (Double) obj.getAltura(),
@@ -99,6 +110,8 @@ public class ProdutoService {
     obj.getPrazoEntrega(),
     serviceEmp.buscar(empresa).get(),
     serviceForn.findOne(obj.getFornecedor()));
+
+    prod.setDataCriacao();
 
     return repo.save(prod);
     
@@ -118,6 +131,36 @@ public class ProdutoService {
     }
     catch (DataIntegrityException e) {
       throw new DataIntegrityException("Não é possível excluir esta rua!");
+    }
+  }
+
+  public List<Produto> lastProduct(Integer empresa){
+     Integer y = 0;
+     List<Produto> prod = findAll(empresa);
+     for(Produto p : prod){
+       Integer x = p.getId();
+       if( x > y ){
+         y = x;
+       }
+     }
+     return findOne(empresa,y);
+  }
+
+  public URI uploadProfilePicture(MultipartFile multipartFile,Integer id){
+    UserSS user = UserService.authenticated();
+    if(user == null){
+      throw new AuthorizationException("Acesso Negado");
+    }
+
+    try{
+      Produto prod = repo.getById(id);
+      URI uri = s3Service.uploadFile(multipartFile);
+      prod.setImageUrl(uri.toString());
+      repo.save(prod);
+      return uri;
+    }
+    catch (ObjectNotFoundException e) {
+      throw new ObjectNotFoundException("Id: " + id + " Não foi encontrado");
     }
   }
 

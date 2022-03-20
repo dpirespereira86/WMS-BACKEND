@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	private JWTUtil jwtUtil;
 	
 	private UserDetailsService userDetailsService;
+
+	@Value("${default.address}")
+	private String endereco;
 	
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
 		super(authenticationManager);
@@ -31,10 +35,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
 
-    response.setHeader("Access-Control-Allow-Origin", "http://192.168.0.112:3000");
+    response.setHeader("Access-Control-Allow-Origin", endereco);
     response.setHeader("Access-Control-Allow-Credentials", "true");
     
-    if ("OPTIONS".equals(request.getMethod()) && "http://192.168.0.112:3000".equals(request.getHeader("Origin"))) {
+    if ("OPTIONS".equals(request.getMethod()) && endereco.equals(request.getHeader("Origin"))) {
       response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
           response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
           response.setHeader("Access-Control-Max-Age", "3600");

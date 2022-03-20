@@ -16,5 +16,10 @@ public class UsuarioService {
       Usuario user = repo.findByEmail(objUsuario.getEmail());
       return user;
   }
+
+  public Usuario findUser(String email){
+    Usuario user = repo.findByEmail(email);
+    return user;
+}
   
 }

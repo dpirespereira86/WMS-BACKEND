@@ -6,6 +6,7 @@ public class PostProdutoDTO  implements Serializable {
   private static final long serialVersionUID = 1L;
   
   private String codigoBarra;
+  private String sku;
   private String descricao;
   private Double comprimento;
   private Double largura;
@@ -127,7 +128,14 @@ public class PostProdutoDTO  implements Serializable {
     this.fornecedor = fornecedor;
   }
   
-  
+  public String getSku() {
+    return sku;
+  }
+
+  public void setSku(String sku) {
+    this.sku = sku;
+  }
+   
 
   
   

@@ -8,6 +8,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	private AuthenticationManager authenticationManager;
     
     private JWTUtil jwtUtil;
+    
+    @Value("${default.address}")
+    private String endereco;
 
     // @Autowired
     // private BCryptPasswordEncoder be;
@@ -65,7 +70,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
-        res.setHeader("Access-Control-Allow-Origin", "http://192.168.0.112:3000");
+        res.setHeader("Access-Control-Allow-Origin", endereco);
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.getWriter().append("Bearer " + token);
         

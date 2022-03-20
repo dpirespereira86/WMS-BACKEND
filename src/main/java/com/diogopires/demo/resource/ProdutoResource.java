@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -40,11 +42,11 @@ public class ProdutoResource {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@PathVariable Integer empresa,@RequestBody PostProdutoDTO objDto){
+  public ResponseEntity<Integer> insert(@PathVariable Integer empresa,@RequestBody PostProdutoDTO objDto){
      Produto obj = service.insert(empresa,objDto);
-     URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-     .path("/{id}").buildAndExpand(obj.getId()).toUri();
-     return ResponseEntity.created(uri).build();
+     /*URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+     .path("/{id}").buildAndExpand(obj.getId()).toUri();*/
+     return /*ResponseEntity.created(uri).build() &&*/ ResponseEntity.ok().body(obj.getId());
   }
 
   @RequestMapping(value="/{id}",method = RequestMethod.PUT)
@@ -60,6 +62,12 @@ public class ProdutoResource {
       service.delete(empresa,id);
       return ResponseEntity.noContent().build();
       
+  }
+
+  @RequestMapping(value="/picture/{id}",method = RequestMethod.POST)
+  public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name="file") MultipartFile file,@PathVariable Integer id){
+     URI uri = service.uploadProfilePicture(file,id);
+     return ResponseEntity.created(uri).build();
   }
 
   

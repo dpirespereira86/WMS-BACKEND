@@ -2,6 +2,8 @@ package com.diogopires.demo.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,6 +29,7 @@ public class Produto implements Serializable {
   private Integer id;
   @JoinColumn(unique = true)
   private String codigoBarra;
+  private String sku;
   private String descricao;
   private Double comprimento;
   private Double largura;
@@ -38,6 +41,9 @@ public class Produto implements Serializable {
   private Double estoqueMaximo;
   private Double quantidade;
   private Integer prazoEntrega;
+  private Date dataCriacao;
+  private Date dataAtualizacao;
+  private String imageUrl;
   
   
   @OneToMany(mappedBy = "id.produto")
@@ -63,11 +69,13 @@ public class Produto implements Serializable {
 
   }
 
-  public Produto(Integer id, String codigoBarra, String descricao, Double comprimento, Double largura, Double altura,
+
+  public Produto(Integer id, String codigoBarra,String sku, String descricao, Double comprimento, Double largura, Double altura,
       Double peso, Double ultimoPrecoCompra, String unidade, Double estoqueMinimo, Double estoqueMaximo,
       Double quantidade, Integer prazoEntrega,Empresa empresa,Fornecedor fornecedor) {
     this.id = id;
     this.codigoBarra = codigoBarra;
+    this.sku = sku;
     this.descricao = descricao;
     this.comprimento = comprimento;
     this.largura = largura;
@@ -238,6 +246,39 @@ public class Produto implements Serializable {
 
   public void setEmpresa(Empresa empresa) {
     this.empresa = empresa;
+  }
+
+  public String getSku() {
+    return sku;
+  }
+
+  public void setSku(String sku) {
+    this.sku = sku;
+  }
+
+  public Date getDataCriacao() {
+    return dataCriacao;
+  }
+
+  public void setDataCriacao() {
+    Calendar calendar =  Calendar.getInstance();
+    this.dataCriacao = calendar.getTime();
+  }
+
+  public Date getDataAtualizacao() {
+    return dataAtualizacao;
+  }
+
+  public void setDataAtualizacao(Date dataAtualizacao) {
+    this.dataAtualizacao = dataAtualizacao;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   
