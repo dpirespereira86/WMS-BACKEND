@@ -94,6 +94,8 @@ public class ProdutoService {
       }
     }
 
+    System.out.print("olha eu aqui ");
+
     Produto prod = new Produto(null,
     obj.getCodigoBarra(),
     obj.getSku(),
