@@ -269,8 +269,9 @@ public class Produto implements Serializable {
     return dataAtualizacao;
   }
 
-  public void setDataAtualizacao(Date dataAtualizacao) {
-    this.dataAtualizacao = dataAtualizacao;
+  public void setDataAtualizacao() {
+    Calendar calendar =  Calendar.getInstance();
+    this.dataAtualizacao = calendar.getTime();
   }
 
   public String getImageUrl() {

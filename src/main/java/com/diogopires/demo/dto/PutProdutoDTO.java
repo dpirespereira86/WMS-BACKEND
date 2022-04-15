@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.diogopires.demo.domain.Produto;
 
-public class ProdutoDTO implements Serializable {
+public class PutProdutoDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 
  
@@ -26,10 +26,10 @@ public class ProdutoDTO implements Serializable {
   private String fornecedor;
 
 
-  public ProdutoDTO() {
+  public PutProdutoDTO() {
   }
 
-  public ProdutoDTO(Produto obj) {
+  public PutProdutoDTO(Produto obj) {
     this.id = obj.getId();
     this.codigoBarra = obj.getCodigoBarra();
     this.sku = obj.getSku();

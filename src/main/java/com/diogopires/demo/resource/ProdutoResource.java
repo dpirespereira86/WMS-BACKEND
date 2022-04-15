@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+// import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "v1/{empresa}/produtos")
@@ -49,10 +49,10 @@ public class ProdutoResource {
      return /*ResponseEntity.created(uri).build() &&*/ ResponseEntity.ok().body(obj.getId());
   }
 
-  @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-  public ResponseEntity<Void> update(@RequestBody Produto obj,@PathVariable Integer empresa,@PathVariable Integer id){
+  @RequestMapping(value="/{id}/{fornecedor}",method = RequestMethod.PUT)
+  public ResponseEntity<Void> update(@RequestBody ProdutoDTO obj,@PathVariable Integer empresa,@PathVariable Integer id){
       obj.setId(id);
-      obj = service.update(obj,empresa);
+      service.update(obj,empresa);
       return ResponseEntity.noContent().build();
       
   }

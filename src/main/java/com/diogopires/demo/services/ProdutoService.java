@@ -4,14 +4,17 @@ package com.diogopires.demo.services;
 
 
 import java.net.URI;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import com.diogopires.demo.domain.Fornecedor;
 import com.diogopires.demo.domain.ItemMovimentacao;
 import com.diogopires.demo.domain.Produto;
-import com.diogopires.demo.domain.Usuario;
+// import com.diogopires.demo.domain.Usuario;
 import com.diogopires.demo.dto.PostProdutoDTO;
+import com.diogopires.demo.dto.ProdutoDTO;
+import com.diogopires.demo.repository.FornecedorRepository;
 import com.diogopires.demo.repository.ProdutoRepository;
 import com.diogopires.demo.security.UserSS;
 import com.diogopires.demo.services.exceptions.AuthorizationException;
@@ -38,6 +41,9 @@ public class ProdutoService {
   
   @Autowired
   private UsuarioService usuarioService;
+
+  @Autowired
+  private FornecedorRepository fornecedorRepo;
 
   public Boolean validaCompany(Integer empresa, List<ItemMovimentacao> itens) {
     Integer x = 0;
@@ -113,17 +119,38 @@ public class ProdutoService {
     serviceEmp.buscar(empresa).get(),
     serviceForn.findOne(obj.getFornecedor()));
 
+    
     prod.setDataCriacao();
 
     return repo.save(prod);
     
   }
 
-  public Produto update(Produto obj, Integer empresa){
+  public Produto update(ProdutoDTO obj, Integer empresa){
     findOne(empresa, obj.getId());
-    obj.setEmpresa(serviceEmp.buscar(empresa).get());
-    return repo.save(obj);
-    
+    System.out.println("Fornecedor: "+ obj.getFornecedor());
+    Fornecedor forn = fornecedorRepo.findByRazaoSocial(obj.getFornecedor());
+    if(forn == null){
+      throw new ObjectNotFoundException("Não foi encontrado fornecedor");
+    }
+    Produto prod = new Produto(obj.getId(),
+    obj.getCodigoBarra(),
+    obj.getSku(),
+    obj.getDescricao(),
+    (Double) obj.getComprimento(),
+    (Double) obj.getLargura(),
+    (Double) obj.getAltura(),
+    (Double) obj.getPeso(),
+    (Double) obj.getUltimoPrecoCompra(),
+    obj.getUnidade(),
+    (Double) obj.getEstoqueMinimo(),
+    (Double) obj.getEstoqueMaximo(),
+    (Double) obj.getQuantidade(),
+    obj.getPrazoEntrega(),
+    serviceEmp.buscar(empresa).get(),
+    forn);
+    prod.setDataAtualizacao();
+    return repo.save(prod);
   }
 
   public void delete(Integer empresa,Integer id){
