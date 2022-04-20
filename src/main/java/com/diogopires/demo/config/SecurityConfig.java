@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
   private static final String[] PUBLIC_MATCHERS_POST = {
     "/auth/forgot",
+    "/v1/**",
   };
 
   private static final String[] PUBLIC_MATCHERS_DELETE = {

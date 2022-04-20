@@ -55,18 +55,12 @@ public class FornecedorService {
   }
     
 
-  // public Fornecedor insert(Integer empresa, Fornecedor obj){
-  //   obj.setId(null);
-  //   obj.setEmpresa(serviceEmp.buscar(empresa).get());
-  //   List<Fornecedor> prod = findAll(empresa);
-  //   for(Fornecedor x : prod){
-  //     if(x.getNome().contentEquals(obj.getNome())){
-  //       throw new ObjectNotFoundException("Nome de Fornecedor já existe");
-  //     }
-  //   }
-  //   return repo.save(obj);
+  public Fornecedor insert(Integer empresa, Fornecedor obj){
+    obj.setId(null);
+    obj.setEmpresa(serviceEmp.buscar(empresa).get());
+    return repo.save(obj);
     
-  // }
+  }
 
   public Fornecedor update(Fornecedor obj, Integer empresa){
     findOneTo(empresa, obj.getId());
