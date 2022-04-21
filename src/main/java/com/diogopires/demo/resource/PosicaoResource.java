@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.diogopires.demo.domain.Posicao;
 import com.diogopires.demo.dto.PosicaoDTO;
 import com.diogopires.demo.dto.PosicaoProdutoDTO;
+import com.diogopires.demo.dto.PostPosicaoDTO;
 import com.diogopires.demo.services.PosicaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +33,16 @@ public class PosicaoResource {
      return ResponseEntity.ok().body(listDto);
   }
 
-  @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-  public ResponseEntity<List<PosicaoProdutoDTO>> ProductlistarPosiion(@PathVariable Integer empresa,@PathVariable Integer id){
-     List<Posicao> obj = service.ProductFindAllPosition(empresa,id);
+  @RequestMapping(value = "/{estoque}",method = RequestMethod.GET)
+  public ResponseEntity<List<PosicaoProdutoDTO>> StocklistPosition(@PathVariable Integer empresa,@PathVariable Integer estoque){
+     List<Posicao> obj = service.StockFindAllPosition(empresa, estoque);
      List<PosicaoProdutoDTO> listDto = obj.stream().map(p -> new PosicaoProdutoDTO(p)).collect(Collectors.toList());
      return ResponseEntity.ok().body(listDto);
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@PathVariable Integer empresa, @RequestBody Posicao obj){
-    obj = service.insert(obj,empresa);
+  public ResponseEntity<Void> insert(@PathVariable Integer empresa, @RequestBody PostPosicaoDTO obj){
+    obj = new PostPosicaoDTO(service.insert(obj,empresa));
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
     .path("/{id}").buildAndExpand(obj.getId()).toUri();
     return ResponseEntity.created(uri).build();

@@ -49,7 +49,7 @@ public class ProdutoResource {
      return /*ResponseEntity.created(uri).build() &&*/ ResponseEntity.ok().body(obj.getId());
   }
 
-  @RequestMapping(value="/{id}/{fornecedor}",method = RequestMethod.PUT)
+  @RequestMapping(value="/{id}",method = RequestMethod.PUT)
   public ResponseEntity<Void> update(@RequestBody ProdutoDTO obj,@PathVariable Integer empresa,@PathVariable Integer id){
       obj.setId(id);
       service.update(obj,empresa);

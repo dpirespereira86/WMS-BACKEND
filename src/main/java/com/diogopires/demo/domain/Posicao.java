@@ -28,7 +28,9 @@ public class Posicao implements Serializable {
   private Double quantidade;
   private Double peso;
   private Double capacidade;
+  private Integer ordem;
   
+
   @ManyToOne
   @JoinColumn(name = "estoque_id")
   private Estoque estoque;
@@ -60,16 +62,17 @@ public class Posicao implements Serializable {
 
 
   public Posicao(Integer id,Estoque estoque, Rua rua, Predio predio,
-      Nivel nivel) {
+      Nivel nivel,Double capacidade, Integer ordem) {
     this.id = id;
     this.nome = estoque.getNome() + "-" + rua.getNome() + predio.getNome() + nivel.getNome() ;
     this.estoque = estoque;
     this.quantidade = 0.00;
     this.peso = 0.00;
-    this.capacidade = 0.00;
+    this.capacidade = capacidade;
     this.rua = rua;
     this.predio = predio;
     this.nivel = nivel;
+    this.ordem= ordem;
   }
 
 
@@ -179,6 +182,15 @@ public class Posicao implements Serializable {
 
   public void setItens(List<ItemPosicao> itens) {
     this.itens = itens;
+  }
+
+  public Integer getOrdem() {
+    return ordem;
+  }
+
+
+  public void setOrdem(Integer ordem) {
+    this.ordem = ordem;
   }
 
 

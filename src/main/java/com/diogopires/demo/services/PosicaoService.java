@@ -5,13 +5,13 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
+
 import com.diogopires.demo.domain.Estoque;
-import com.diogopires.demo.domain.Nivel;
 import com.diogopires.demo.domain.Posicao;
-import com.diogopires.demo.domain.Predio;
 import com.diogopires.demo.domain.Produto;
-import com.diogopires.demo.domain.Rua;
+import com.diogopires.demo.dto.PostPosicaoDTO;
 import com.diogopires.demo.repository.PosicaoRepository;
+import com.diogopires.demo.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -94,17 +94,49 @@ public class PosicaoService {
    List<Produto> prod = produtoService.findOne(empresa, id);
    return prod.get(0).getPosicoes();
   }
+
+  public List<Posicao> StockFindAllPosition(Integer empresa,Integer id){
+    List<Posicao> posicoes = repo.findByEstoque(estoqueService.findOne(empresa, id).get(0));
+    return posicoes;
+  }
+
+  public void validaNome(String nome,Integer empresa){
+    List<Posicao> posicoes = findAll(empresa);
+    for(Posicao p : posicoes){
+      if(p.getNome().equalsIgnoreCase(nome)){
+        throw new ObjectNotFoundException("Posição já existe !!");
+      }
+    }
+  }
+
+  public void validaOrdem(Estoque estoque,Integer ordem){
+    for(Posicao p : estoque.getPosicoes()){
+      if(p.getOrdem() == ordem){
+        throw new ObjectNotFoundException("Ordem já existe para este estoque !!");
+      }
+    }
+  }
   
-  public Posicao insert(Posicao obj, Integer id){
-    List<Estoque> estoque = estoqueService.findOne(id,obj.getEstoque().getId());
-    Rua rua = ruaService.findOne(obj.getRua().getId());
-    Predio predio = predioService.findOne(obj.getPredio().getId());
-    Nivel nivel = nivelService.findOne(obj.getNivel().getId());
-    obj.setId(null);
-    obj.setNome(estoque.get(0).getNome() + "-" + rua.getNome() + predio.getNome() + nivel.getNome());
-    obj.setPeso(0.00);
-    obj.setQuantidade(0.00);
-    return repo.save(obj);
+  public Posicao insert(PostPosicaoDTO obj, Integer empresa){
+    //busca o estoque 
+    Estoque estoque = estoqueService.findOne(empresa,obj.getEstoque()).get(0);
+    //Cria o objeto posição 
+    Posicao posicao = new Posicao(
+     null, 
+     estoque,
+     ruaService.findOne(obj.getRua()),
+     predioService.findOne(obj.getPredio()),
+     nivelService.findOne(obj.getNivel()),
+     (Double) obj.getCapacidade(),
+     obj.getOrdem());
+    //Verifica se já existe uma posição igual
+    validaNome(posicao.getNome(),empresa);
+    //valida ordem
+    validaOrdem(estoque,obj.getOrdem());
+    //Adiciona a capacidade ao estoque
+    estoque.setCapacidade(estoque.getCapacidade() + posicao.getCapacidade());
+    //Salva o objeto posição
+    return repo.save(posicao);
   }
 }
 

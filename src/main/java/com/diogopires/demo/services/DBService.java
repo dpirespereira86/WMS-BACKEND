@@ -167,14 +167,14 @@ public class DBService {
 
     estoqueRepository.saveAll(Arrays.asList(est1,est2,est3));
 
-		Posicao pos1 =  new Posicao(null, est1, rua1, pred1, niv1);
-		Posicao pos2 =  new Posicao(null, est1, rua1, pred1, niv2);
-		Posicao pos3 =  new Posicao(null, est1, rua2, pred1, niv1);
-		Posicao pos4 =  new Posicao(null, est1, rua2, pred2, niv2);
-		Posicao pos5 =  new Posicao(null, est2, rua2, pred2, niv2);
-		Posicao pos6 =  new Posicao(null, est3, rua1, pred1, niv1);
-		Posicao pos7 =  new Posicao(null, est3, rua1, pred1, niv2);
-		Posicao pos8 =  new Posicao(null, est3, rua1, pred1, niv3);
+		Posicao pos1 =  new Posicao(null, est1,rua1, pred1, niv1,0.00,1);
+		Posicao pos2 =  new Posicao(null, est1, rua1, pred1, niv2,0.00,2);
+		Posicao pos3 =  new Posicao(null, est1, rua2, pred1, niv1,0.00,3);
+		Posicao pos4 =  new Posicao(null, est1, rua2, pred2, niv2,0.00,4);
+		Posicao pos5 =  new Posicao(null, est2, rua2, pred2, niv2,0.00,1);
+		Posicao pos6 =  new Posicao(null, est3, rua1, pred1, niv1,0.00,1);
+		Posicao pos7 =  new Posicao(null, est3, rua1, pred1, niv2,0.00,2);
+		Posicao pos8 =  new Posicao(null, est3, rua1, pred1, niv3,0.00,3);
 
 		pos1.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3,prod4));
 		pos2.getProdutos().addAll(Arrays.asList(prod2,prod4,prod6));

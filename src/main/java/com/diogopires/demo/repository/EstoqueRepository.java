@@ -14,5 +14,8 @@ public interface EstoqueRepository extends JpaRepository<Estoque,Integer> {
   
   @Transactional(readOnly = true)
   List<Estoque> findByEmpresa(Empresa  empresa); 
+
+  @Transactional
+  Estoque findByNome(String nome);
   
 }

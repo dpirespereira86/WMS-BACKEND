@@ -61,12 +61,18 @@ public class EstoqueService {
     }
     return estoques;
   }
-
+  //Cria um novo estoque no banco de dados
   public Estoque insert(Estoque obj,Integer empresa){
+    //TODO :Resolver o envio da menssagem de validação.
+    if(repo.findByNome(obj.getNome().toUpperCase()) != null  && repo.findByNome(obj.getNome()).getEmpresa().getId() == empresa){
+      throw new ObjectNotFoundException("O nome de estoque já existe!!");
+    }
     obj.setId(null);
     obj.setEmpresa(empresaServico.buscar(empresa).get());
     obj.setPeso(0.00);
     obj.setQuantidade(0.00);
+    obj.setCapacidade(0.00);
+    obj.setNome(obj.getNome().toUpperCase());
     return repo.save(obj);
   }
 }

@@ -39,5 +39,20 @@ public class FornecedorResource {
      return ResponseEntity.created(uri).build();
   }
 
+  @RequestMapping(value="/{id}",method = RequestMethod.PUT)
+  public ResponseEntity<Void> update(@RequestBody Fornecedor obj,@PathVariable Integer empresa,@PathVariable Integer id){
+      obj.setId(id);
+      service.update(obj,empresa);
+      return ResponseEntity.noContent().build();
+      
+  }
+
+  @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+  public ResponseEntity<Void> delete(@PathVariable Integer empresa,@PathVariable Integer id){
+      service.delete(empresa,id);
+      return ResponseEntity.noContent().build();
+      
+  }
+
   
 }

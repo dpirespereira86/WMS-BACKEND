@@ -4,37 +4,42 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
 import com.diogopires.demo.domain.ItemPosicao;
 import com.diogopires.demo.domain.Posicao;
 
-public class PosicaoDTO implements Serializable {
+public class PostPosicaoDTO implements Serializable {
   private static final long serialVersionUID = 1L; 
   
   private Integer id;
   private String nome;
   private Double quantidade;
   private Double peso;
+  private Integer estoque;
   private Double capacidade;
-  private String rua;
-  private String predio;
-  private String nivel;
+  private Integer rua;
+  private Integer predio;
+  private Integer nivel;
   private Integer ordem;
 
  
+
   private List<ItemPosicaoDTO> itens = new ArrayList<>();
 
-  public PosicaoDTO() {
+  public PostPosicaoDTO() {
   }
 
-  public PosicaoDTO(Posicao obj) {
+  public PostPosicaoDTO(Posicao obj) {
     this.id = obj.getId();
     this.nome = obj.getNome();
     this.quantidade = obj.getQuantidade();
     this.peso = obj.getPeso();
+    this.estoque=obj.getEstoque().getId();
     this.capacidade = obj.getCapacidade();
-    this.rua = obj.getNivel().getNome();
-    this.predio = obj.getPredio().getNome();
-    this.nivel = obj.getNivel().getNome();
+    this.rua = obj.getNivel().getId();
+    this.predio = obj.getPredio().getId();
+    this.nivel = obj.getNivel().getId();
     this.ordem = obj.getOrdem();
     this.itens = converter(obj.getItens());
   }
@@ -84,27 +89,27 @@ public class PosicaoDTO implements Serializable {
     this.capacidade = capacidade;
   }
 
-  public String getRua() {
+  public Integer getRua() {
     return rua;
   }
 
-  public void setRua(String rua) {
+  public void setRua(Integer rua) {
     this.rua = rua;
   }
 
-  public String getPredio() {
+  public Integer getPredio() {
     return predio;
   }
 
-  public void setPredio(String predio) {
+  public void setPredio(Integer predio) {
     this.predio = predio;
   }
 
-  public String getNivel() {
+  public Integer getNivel() {
     return nivel;
   }
 
-  public void setNivel(String nivel) {
+  public void setNivel(Integer nivel) {
     this.nivel = nivel;
   }
 
@@ -116,6 +121,14 @@ public class PosicaoDTO implements Serializable {
     this.itens = itens;
   }
 
+  public Integer getEstoque() {
+    return estoque;
+  }
+
+  public void setEstoque(Integer estoque) {
+    this.estoque = estoque;
+  }
+
   public Integer getOrdem() {
     return ordem;
   }
@@ -123,9 +136,6 @@ public class PosicaoDTO implements Serializable {
   public void setOrdem(Integer ordem) {
     this.ordem = ordem;
   }
-
-
-  
 
   
 }
