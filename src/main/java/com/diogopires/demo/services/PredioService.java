@@ -61,7 +61,7 @@ public class PredioService {
     obj.setEmpresa(serviceEmp.buscar(empresa).get());
     List<Predio> prod = findAll(empresa);
     for(Predio x : prod){
-      if(x.getNome().contentEquals(obj.getNome())){
+      if(x.getNome().equalsIgnoreCase(obj.getNome())){
         throw new ObjectNotFoundException("Nome de Predio já existe");
       }
     }

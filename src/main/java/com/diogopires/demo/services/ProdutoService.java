@@ -4,7 +4,7 @@ package com.diogopires.demo.services;
 
 
 import java.net.URI;
-import java.util.Calendar;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +39,7 @@ public class ProdutoService {
   @Autowired
   private S3Service s3Service;
   
-  @Autowired
-  private UsuarioService usuarioService;
+ 
 
   @Autowired
   private FornecedorRepository fornecedorRepo;

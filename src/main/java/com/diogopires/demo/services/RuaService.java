@@ -62,8 +62,8 @@ public class RuaService {
     obj.setEmpresa(serviceEmp.buscar(empresa).get());
     List<Rua> prod = findAll(empresa);
     for(Rua x : prod){
-      if(x.getNome().contentEquals(obj.getNome())){
-        throw new ObjectNotFoundException("Nome de rua já existe");
+      if(x.getNome().equalsIgnoreCase(obj.getNome())){
+        throw new ObjectNotFoundException("Nome da rua já existe");
       }
     }
     return repo.save(obj);
