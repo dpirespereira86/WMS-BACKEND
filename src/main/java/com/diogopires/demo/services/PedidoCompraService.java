@@ -1,5 +1,6 @@
 package com.diogopires.demo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +33,6 @@ public class PedidoCompraService {
   }
 
   public List<PedidoCompra> findAll(Integer empresa){
-    System.out.println("------------- PASSEI AQUI-----------------");
      List<PedidoCompra> PedidoCompra = repo.findAll().stream().filter(p -> p.getEmpresa().getId().equals(empresa)).collect(Collectors.toList());
      if(PedidoCompra.isEmpty()){
       throw new ObjectNotFoundException("Não existe Pedido de Compra cadastrada nesta empresa!!");
@@ -59,7 +59,7 @@ public class PedidoCompraService {
   public PedidoCompra insert(Integer empresa, PedidoCompra obj){
     obj.setId(null);
     obj.setEmpresa(serviceEmp.buscar(empresa).get());
-    // List<PedidoCompra> prod = findAll(empresa);
+    obj.setInstante(new Date());
     return repo.save(obj);
     
   }

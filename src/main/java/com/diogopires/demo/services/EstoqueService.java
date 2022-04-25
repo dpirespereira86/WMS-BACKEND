@@ -63,7 +63,7 @@ public class EstoqueService {
   }
   //Cria um novo estoque no banco de dados
   public Estoque insert(Estoque obj,Integer empresa){
-    //TODO :Resolver o envio da menssagem de validação.
+    
     if(repo.findByNome(obj.getNome().toUpperCase()) != null  && repo.findByNome(obj.getNome()).getEmpresa().getId() == empresa){
       throw new ObjectNotFoundException("O nome de estoque já existe!!");
     }

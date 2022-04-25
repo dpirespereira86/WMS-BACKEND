@@ -33,7 +33,6 @@ public class PedidoCompraResource {
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<?> findAll(@PathVariable Integer empresa){
      List<PedidoCompra> obj = service.findAll(empresa);
-     System.out.println("------------- PASSEI AQUI RESOURCE-----------------" + obj);
      List<PedidoCompraDTO> listDto = obj.stream().map(p -> new PedidoCompraDTO(p)).collect(Collectors.toList());
      return ResponseEntity.ok().body(listDto);
   }
