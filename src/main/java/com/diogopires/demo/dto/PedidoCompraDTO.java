@@ -1,24 +1,21 @@
 package com.diogopires.demo.dto;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.stream.Collectors;
 
-import com.amazonaws.services.glue.model.DataFormat;
+
 import com.diogopires.demo.domain.PedidoCompra;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class PedidoCompraDTO  implements Serializable {
   private static final long serialVersionUID = 1L;
   
+  private Integer id;
   private Date instante;
   private Date dataAprovacao;
   private Date dataEntrega;
@@ -40,7 +37,7 @@ public class PedidoCompraDTO  implements Serializable {
   
   
   public PedidoCompraDTO(PedidoCompra obj) {
-
+    this.id = obj.getId();
     this.instante = obj.getInstante();
     this.dataAprovacao = obj.getDataAprovacao();
     this.dataEntrega = obj.getDataEntrega();
@@ -204,10 +201,14 @@ public class PedidoCompraDTO  implements Serializable {
     this.itens = itens;
   }
 
-  
-  
-  
+  public Integer getId() {
+    return id;
+  }
 
 
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
   
 }
