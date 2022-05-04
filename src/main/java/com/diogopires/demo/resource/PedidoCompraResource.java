@@ -4,6 +4,7 @@ import com.diogopires.demo.domain.PedidoCompra;
 import com.diogopires.demo.dto.PedidoCompraDTO;
 import com.diogopires.demo.services.PedidoCompraService;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,8 @@ public class PedidoCompraResource {
   
   @Autowired
   private PedidoCompraService service;
+
+  
 
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<?> findAll(@PathVariable Integer empresa){

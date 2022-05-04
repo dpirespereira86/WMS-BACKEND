@@ -227,7 +227,8 @@ public class DBService {
 
     pedidoCompraRepository.saveAll(Arrays.asList(pdc1));
 
-		ItemPedidoCompra ipc = new ItemPedidoCompra(prod1, pdc1, 50.00, 50.00, 5.00, 4.50);
+		ItemPedidoCompra ipc = new ItemPedidoCompra(prod1, pdc1, 50.00, 4.50,30.00);
+	
 
 		itemPedidoCompraRepository.saveAll(Arrays.asList(ipc));
 	}

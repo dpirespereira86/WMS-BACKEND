@@ -1,11 +1,15 @@
 package com.diogopires.demo.services;
 
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.diogopires.demo.domain.ItemPedidoCompra;
 import com.diogopires.demo.domain.PedidoCompra;
+import com.diogopires.demo.repository.ItemPedidoCompraRepository;
 import com.diogopires.demo.repository.PedidoCompraRepository;
 import com.diogopires.demo.services.exceptions.DataIntegrityException;
 import com.diogopires.demo.services.exceptions.ObjectNotFoundException;
@@ -25,7 +29,16 @@ public class PedidoCompraService {
   private PedidoCompraRepository repo;
 
   @Autowired
+  private ItemPedidoCompraRepository repoItem;
+
+  @Autowired
   private EmpresaService serviceEmp;
+
+  @Autowired
+  private ProdutoService serviceProd;
+
+  @Autowired
+  private FornecedorService serviceForn;
 
   public PedidoCompra findOne(Integer id){
     Optional<PedidoCompra> PedidoCompra = repo.findById(id);
@@ -60,7 +73,18 @@ public class PedidoCompraService {
     obj.setId(null);
     obj.setEmpresa(serviceEmp.buscar(empresa).get());
     obj.setInstante(new Date());
-    return repo.save(obj);
+    obj.setFornecedor(serviceForn.findOne(obj.getFornecedor().getId()));
+    obj.setValorTotal(obj.getValorTotal());
+    obj = repo.save(obj);
+    for( ItemPedidoCompra x : obj.getItens() ){
+      ItemPedidoCompra i = new ItemPedidoCompra(serviceProd.findOne(empresa,
+       x.getProduto().getId()).get(0),
+       obj, x.getQuantidade(),
+        x.getValorUnitario(), 
+        x.getValorItem());
+      repoItem.saveAll(Arrays.asList(i));
+    }
+    return obj;
     
   }
 

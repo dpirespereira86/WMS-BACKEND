@@ -16,11 +16,9 @@ public class ItemPedidoCompra implements Serializable {
   
   private String descricaoProduto;
   private Double quantidade;
-  private Double peso;
   private Double valorReferencia;
   private Double valorUnitario;
-  private Double valorCompra;
-  private Double valorTotal;
+  private Double valorItem;
 
   
   /*CONSTRUTORES--------------------------------*/
@@ -29,17 +27,15 @@ public class ItemPedidoCompra implements Serializable {
   }
 
   
-  public ItemPedidoCompra(Produto produto,PedidoCompra pedidoCompra, Double quantidade, Double peso,
-   Double valorUnitario, Double valorCompra) {
+  public ItemPedidoCompra(Produto produto,PedidoCompra pedidoCompra, Double quantidade,
+   Double valorUnitario,Double valorItem) {
   id.setPedidoCompra(pedidoCompra);
   id.setProduto(produto);
   this.descricaoProduto = produto.getDescricao();
   this.quantidade = quantidade;
-  this.peso = peso * quantidade;
   this.valorReferencia = produto.getUltimoPrecoCompra();
   this.valorUnitario = valorUnitario;
-  this.valorCompra = valorCompra;
-  this.valorTotal = valorUnitario * quantidade;
+  this.valorItem = valorItem;
 }
 
 /*GET E SETERS--------------------------------*/
@@ -91,16 +87,6 @@ public void setProduto(Produto produto){
   }
 
 
-  public Double getPeso() {
-    return peso;
-  }
-
-
-  public void setPeso(Double peso) {
-    this.peso = peso;
-  }
-
-
   public Double getValorReferencia() {
     return valorReferencia;
   }
@@ -121,23 +107,13 @@ public void setProduto(Produto produto){
   }
 
 
-  public Double getValorCompra() {
-    return valorCompra;
+  public Double getValorItem() {
+    return valorItem;
   }
 
 
-  public void setValorCompra(Double valorCompra) {
-    this.valorCompra = valorCompra;
-  }
-
-
-  public Double getValorTotal() {
-    return valorTotal;
-  }
-
-
-  public void setValorTotal(Double valorTotal) {
-    this.valorTotal = valorTotal;
+  public void setValorItem(Double valorTotal) {
+    this.valorItem = valorTotal;
   }
 
 
@@ -178,7 +154,7 @@ public void setProduto(Produto produto){
 		builder.append(", Preço unitário: ");
 		builder.append(nf.format(getValorUnitario()));
 		builder.append(", Subtotal: ");
-		builder.append(nf.format(getValorTotal()));
+		builder.append(nf.format(getValorItem()));
 		builder.append("\n");
 		return builder.toString();
 	}
