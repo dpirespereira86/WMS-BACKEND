@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.diogopires.demo.domain.Fornecedor;
-import com.diogopires.demo.domain.ItemPedidoCompra;
 import com.diogopires.demo.domain.PedidoCompra;
 
 

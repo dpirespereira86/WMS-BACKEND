@@ -12,8 +12,11 @@ public class ItemPedidoCompraDTO implements Serializable {
   private Double peso;
   private Double valorReferencia;
   private Double valorUnitario;
+  private String codigoBarra;
 
   
+
+
 
 
   public ItemPedidoCompraDTO() {
@@ -23,7 +26,7 @@ public class ItemPedidoCompraDTO implements Serializable {
   public ItemPedidoCompraDTO(ItemPedidoCompra obj) {
     this.descricaoProduto = obj.getDescricaoProduto();
     this.quantidade = obj.getQuantidade();
-   
+    this.codigoBarra= obj.getProduto().getCodigoBarra();
     this.valorReferencia = obj.getValorReferencia();
     this.valorUnitario = obj.getValorUnitario();
     
@@ -79,6 +82,16 @@ public class ItemPedidoCompraDTO implements Serializable {
 
   public void setValorUnitario(Double valorUnitario) {
     this.valorUnitario = valorUnitario;
+  }
+
+  
+  public String getCodigoBarra() {
+    return codigoBarra;
+  }
+
+
+  public void setCodigoBarra(String codigoBarra) {
+    this.codigoBarra = codigoBarra;
   }
 
 

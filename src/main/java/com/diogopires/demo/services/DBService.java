@@ -224,12 +224,14 @@ public class DBService {
     enderecoEmpresaRepository.saveAll(Arrays.asList(end1,end2));
 
 		PedidoCompra pdc1 = new PedidoCompra(null, sdf.parse("30/05/2021 12:00"), Origem.MANUAL, emp1, StatusCompra.COTAR,fonr1);
+    PedidoCompra pdc2 = new PedidoCompra(null, sdf.parse("30/05/2021 12:00"), Origem.MANUAL, emp2, StatusCompra.COTAR,fonr2);
 
-    pedidoCompraRepository.saveAll(Arrays.asList(pdc1));
+    pedidoCompraRepository.saveAll(Arrays.asList(pdc1,pdc2));
 
 		ItemPedidoCompra ipc = new ItemPedidoCompra(prod1, pdc1, 50.00, 4.50,30.00);
+	  ItemPedidoCompra ipc1 = new ItemPedidoCompra(prod2, pdc2, 50.00, 4.50,30.00);
 	
 
-		itemPedidoCompraRepository.saveAll(Arrays.asList(ipc));
+		itemPedidoCompraRepository.saveAll(Arrays.asList(ipc,ipc1));
 	}
 }
